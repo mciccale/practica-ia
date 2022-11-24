@@ -1,7 +1,5 @@
 import haversine as hs
-import csv
 
-header = ['From Station', 'To Station', 'Coordenadas 1', 'Coordenadas 2', 'Distancia']
 data = {
     'piraeus': (37.948060, 23.643610),
     'faliro': (37.945000, 23.66528),
@@ -71,23 +69,17 @@ data = {
     'airport': (37.936900, 23.944800)
 }
 
-with open('./Distancia_Aerea.csv', 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(header)
-    row = []
+data_frame = {}
 
+def get_data() -> dict:
     for i in range(0, len(data)):
-        coordinates = list(data.values())[i]
+        coordinates_from = list(data.values())[i]
         from_station = list(data.keys())[i]
-        for j in range(i + 1, len(data)):
-            coordinates2 = list(data.values())[j]
+        data_frame[from_station] = {}
+        for j in range(0, len(data)):
             to_station = list(data.keys())[j]
-            distancia_aerea = hs.haversine(coordinates, coordinates2)
-            row.append(from_station)
-            row.append(to_station)
-            row.append(coordinates)
-            row.append(coordinates2)
-            row.append(distancia_aerea)
-            writer.writerow(row)
-            row.clear()
+            coordinates_to = list(data.values())[j]
+            data_frame[from_station][to_station] = hs.haversine(coordinates_from, coordinates_to)
+    
+    return data_frame
 
