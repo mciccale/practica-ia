@@ -1,3 +1,7 @@
+'''
+HANDMADE MODULE for A* Project, using haversine module
+'''
+
 import haversine as hs
 
 data = {
@@ -72,6 +76,10 @@ data = {
 data_frame = {}
 
 def get_data() -> dict:
+    '''
+    Function that calculates distance between the coordinates
+    of the stations collected in the data TAD
+    '''
     for i in range(0, len(data)):
         coordinates_from = list(data.values())[i]
         from_station = list(data.keys())[i]
@@ -80,6 +88,6 @@ def get_data() -> dict:
             to_station = list(data.keys())[j]
             coordinates_to = list(data.values())[j]
             data_frame[from_station][to_station] = hs.haversine(coordinates_from, coordinates_to)
-    
-    return data_frame
 
+
+    return data_frame
