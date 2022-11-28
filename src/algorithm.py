@@ -300,8 +300,8 @@ def algorithm(from_location: str, to_location: str) -> int:
         for new_station in next_stations:
             if new_station in closed_list:
                 continue
-            g_value = g_value + graph[station[1]][new_station[1]]
-            h_value = data_frame[new_station[1]][to_location]
+            g_value = g_value + graph[station[1]][new_station]
+            h_value = data_frame[new_station][to_location]
             f_value = g_value + h_value
             #if new_station in open_list:
             #    index: int = open_list.index(new_station)
