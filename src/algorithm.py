@@ -303,7 +303,6 @@ def algorithm(from_location: str, to_location: str) -> int:
             g_value = g_value + graph[station[1]][new_station[1]]
             h_value = data_frame[new_station[1]][to_location]
             f_value = g_value + h_value
-            f_value = f_value + 1
             #if new_station in open_list:
             #    index: int = open_list.index(new_station)
             #    if g > open_list[index][]m
