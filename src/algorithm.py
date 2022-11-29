@@ -10,9 +10,7 @@ VELOCITY = 1.3333
 
 graph = {
     'piraeus': {
-        'faliro': VELOCITY*4,
-        'dimotiko theatro': VELOCITY*2,
-        'maniatika': VELOCITY*1
+        'faliro': VELOCITY*4
     },
     'faliro': {
         'piraeus': VELOCITY*3,
@@ -89,7 +87,7 @@ graph = {
         'iraklio': VELOCITY*2
     },
     'iraklio': {
-        'nea inonia': VELOCITY*2,
+        'nea ionia': VELOCITY*2,
         'irini': VELOCITY*3
     },
     'irini': {
@@ -112,7 +110,7 @@ graph = {
         'kat': VELOCITY*2
     },
     'anthoupoli': {
-        'perosteri': VELOCITY*1
+        'peristeri': VELOCITY*1
     },
     'peristeri': {
         'anthoupoli': VELOCITY*1,
@@ -183,31 +181,7 @@ graph = {
     'elliniko': {
         'argyroupoli': VELOCITY*1
     },
-    'dimotiko theatro': {
-        'piraeus': VELOCITY*2
-    },
-    'maniatika': {
-        'piraeus': VELOCITY*1,
-        'nikea': VELOCITY*2
-    },
-    'nikea': {
-        'maniatika': VELOCITY*2,
-        'korydallos': VELOCITY*2
-    },
-    'korydallos': {
-        'nikea': VELOCITY*2,
-        'aghia varvara': VELOCITY*2
-    },
-    'aghia varvara': {
-        'korydalos': VELOCITY*2,
-        'aghis marina': VELOCITY*2
-    },
-    'aghia marina': {
-        'aghia varvara': VELOCITY*2,
-        'egaleo': VELOCITY*2
-    },
     'egaleo': {
-        'aghia marina': VELOCITY*2,
         'eleonas': VELOCITY*2
     },
     'eleonas': {
@@ -224,7 +198,7 @@ graph = {
     },
     'megaro moussikis': {
         'evangelismos': VELOCITY*1,
-        'amberlokipi': VELOCITY*2
+        'ambelokipi': VELOCITY*2
     },
     'ambelokipi': {
         'megaro moussikis': VELOCITY*2,
@@ -283,30 +257,35 @@ def algorithm(from_location: str, to_location: str) -> int:
     '''
     METHOD THAT IMPLEMENTS A* ALGORITHM FOR ATHENAS METRO NET
     '''
+
+
+    # INITIALIZE OPEN AND CLOSED LISTS
     open_list: list = []
     closed_list: list = []
     g_value: float = 0
     h_value: float = 0
-    open_list.append((0, from_location))
+    open_list.append((0,0, from_location))
     while len(open_list) != 0:
         station = min(open_list)
         open_list.remove(station)
         closed_list.append(station)
-        if station[1] == to_location:
+        if station[2] == to_location:
             #* Success!!!
             return 1
 
-        next_stations = list(graph[station[1]])
+        next_stations = list(graph[station[2]])
         for new_station in next_stations:
-            if new_station in closed_list:
+            result = [ x for x in closed_list if x[2] == new_station]
+            if result != []:
                 continue
-            g_value = g_value + graph[station[1]][new_station]
+            g_value = g_value + graph[station[2]][new_station]
             h_value = data_frame[new_station][to_location]
             f_value = g_value + h_value
-            #if new_station in open_list:
-            #    index: int = open_list.index(new_station)
-            #    if g > open_list[index][]m
-
+            if new_station in open_list:
+                index: int = open_list.index(new_station)
+                if g_value > open_list[index][1]:
+                    continue
+            open_list.append((f_value,g_value, new_station))
     return 0
 
 
@@ -314,7 +293,7 @@ def main():
     '''
     MAIN METHOD
     '''
-    print(algorithm('piraeus', 'irini'))
+    print(algorithm('piraeus', 'holargos'))
 
 
 if __name__ == '__main__':
