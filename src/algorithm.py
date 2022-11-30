@@ -9,7 +9,7 @@ data_frame: dict = get_data()
 # una distancia aproximada usando la velocidad media
 VELOCITY = 1.3333
 
-G = nx.MultiGraph()
+G = nx.Graph()
 aristas = [
     ('piraeus','faliro',VELOCITY*4),
     ('faliro','piraeus',VELOCITY*3),
@@ -118,7 +118,6 @@ aristas = [
     ('peania - kantza','koropi', VELOCITY*6),
     ('koropi','peania - kantza', VELOCITY*6),
     ('koropi','airport', VELOCITY*5),
-    ('airport','peania - kantza', VELOCITY*5)
 ]
 
 G.add_weighted_edges_from(aristas)
@@ -352,7 +351,7 @@ graph = {
     }
 }
 
-
+closed_list: list = []
 def algorithm(from_location: str, to_location: str) -> int:
     '''
     METHOD THAT IMPLEMENTS A* ALGORITHM FOR ATHENAS METRO NET
@@ -360,7 +359,7 @@ def algorithm(from_location: str, to_location: str) -> int:
 
     # INITIALIZE OPEN AND CLOSED LISTS
     open_list: list = []
-    closed_list: list = []
+    
     g_value_before: float = 0
     g_value: float = 0
     h_value: float = 0
@@ -390,14 +389,3 @@ def algorithm(from_location: str, to_location: str) -> int:
             open_list.append((f_value, g_value, new_station))
 
     return 0
-
-
-def main():
-    '''
-    MAIN METHOD
-    '''
-    print(algorithm('thissio', 'evangelismos'))
-
-
-if __name__ == '__main__':
-    main()
