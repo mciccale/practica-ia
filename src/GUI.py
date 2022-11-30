@@ -48,8 +48,11 @@ class Page(tk.Frame):
         'node_size': 100,
         'width': 3,
         }
+        layout={
+            'koropi':[4.5,1.25], 'peania - kantza':[4.5,1.5], 'airport':[5,1.25],
+        }
         f.add_subplot(111)
-        nx.draw_random(G, **options)
+        nx.draw_networkx_edges(Graph, layout, edge_color='gray')
         canvas=FigureCanvasTkAgg(f,self)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP,fill=tk.BOTH, expand=True)
