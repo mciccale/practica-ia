@@ -75,7 +75,7 @@ aristas = [
     ('syntagma','monastiraki', VELOCITY*3),
     ('syntagma','evangelismos', VELOCITY*1),
     ('akropoli','syntagma', VELOCITY*1),
-    ('akropoli','sygroy', VELOCITY*2),
+    ('akropoli','sygroy - fix', VELOCITY*2),
     ('sygroy - fix','akropoli', VELOCITY*2),
     ('sygroy - fix','neos kosmos', VELOCITY*1),
     ('neos kosmos','sygroy - fix', VELOCITY*1),
@@ -85,14 +85,6 @@ aristas = [
     ('dafni','aghios ioannis', VELOCITY*2),
     ('dafni','aghios dimitrios', VELOCITY*2),
     ('aghios dimitrios','dafni', VELOCITY*2),
-    ('aghios dimitrios','ilioupoli', VELOCITY*2),
-    ('ilioupoli','aghios dimitrios', VELOCITY*2),
-    ('ilioupoli','alimos', VELOCITY*1),
-    ('alimos','ilioupoli', VELOCITY*1),
-    ('alimos','argyoupoli', VELOCITY*3),
-    ('argyoupoli','alimos', VELOCITY*3),
-    ('argyoupoli','elliniko', VELOCITY*1),
-    ('elliniko','argyroupoli', VELOCITY*1),
     ('egaleo','eleonas', VELOCITY*2),
     ('eleonas','egaleo', VELOCITY*2),
     ('eleonas','kerameikos', VELOCITY*2),
@@ -287,22 +279,6 @@ graph = {
     },
     'aghios dimitrios': {
         'dafni': VELOCITY*2,
-        'ilioupoli': VELOCITY*2
-    },
-    'ilioupoli': {
-        'aghios dimitrios': VELOCITY*2,
-        'alimos': VELOCITY*1
-    },
-    'alimos': {
-        'ilioupoli': VELOCITY*1,
-        'argyoupoli': VELOCITY*3
-    },
-    'argyoupoli': {
-        'alimos': VELOCITY*3,
-        'elliniko': VELOCITY*1
-    },
-    'elliniko': {
-        'argyroupoli': VELOCITY*1
     },
     'egaleo': {
         'eleonas': VELOCITY*2
@@ -412,6 +388,7 @@ def algorithm(from_location: str, to_location: str) -> int:
                 if g_value > open_list[index][1]:
                     continue
             open_list.append((f_value, g_value, new_station))
+
     return 0
 
 
