@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 import networkx as nx
 import matplotlib.pyplot as plt
+from algorithm import G
 LARGE_FONT=("Verdana",12)
 
 class Graphapp(tk.Tk):
@@ -41,7 +42,7 @@ class Page(tk.Frame):
         button=ttk.Button(self,text="Back to Home", command=lambda:controller.show_frame(StartPage))
         button.pack()
         f=plt.figure(figsize=(5,5), dpi=100)
-        G = nx.petersen_graph() #Aqui iría nuestro grafo calculado
+        Graph=G
         options = { #Lo podríamos cambiar para que no fuera tan desagradable de ver
         'node_color': 'black',
         'node_size': 100,

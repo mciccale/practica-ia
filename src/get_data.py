@@ -3,7 +3,6 @@ HANDMADE MODULE for A* Project, using haversine module
 '''
 
 import haversine as hs
-
 data = {
     'piraeus': (37.948060, 23.643610),
     'faliro': (37.945000, 23.66528),

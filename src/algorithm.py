@@ -1,4 +1,5 @@
 from get_data import get_data
+import networkx as nx
 
 data_frame: dict = get_data()
 
@@ -7,6 +8,128 @@ data_frame: dict = get_data()
 # Como los datos nos dicen el tiempo entre estaciones en minutos, calculamos
 # una distancia aproximada usando la velocidad media
 VELOCITY = 1.3333
+
+G = nx.MultiGraph()
+aristas = [
+    ('piraeus','faliro',VELOCITY*4),
+    ('faliro','piraeus',VELOCITY*3),
+    ('faliro','moschato',VELOCITY*3),
+    ('moschato','faliro',VELOCITY*3),
+    ('moschato','kallithea',VELOCITY*2),
+    ('kallithea','moschato',VELOCITY*2),
+    ('kallithea','tavros',VELOCITY*2),
+    ('tavros','kallithea',VELOCITY*2),
+    ('tavros','petralona',VELOCITY*2),
+    ('petralona','tavros',VELOCITY*2),
+    ('petralona','thissio',VELOCITY*2),
+    ('thissio','petralona',VELOCITY*2),
+    ('thissio','monastiraki',VELOCITY*2),
+    ('monastiraki','thissio',VELOCITY*2),
+    ('monastiraki','omonia',VELOCITY*2),
+    ('monastiraki','kerameikos',VELOCITY*2),
+    ('monastiraki','syntagma',VELOCITY*3),
+    ('omonia','monastiraki',VELOCITY*2),
+    ('omonia','victoria',VELOCITY*2),
+    ('omonia','metaxourghio',VELOCITY*2),
+    ('omonia','panepistimio',VELOCITY*1),
+    ('victoria','omonia',VELOCITY*2),
+    ('victoria','attiki',VELOCITY*3),
+    ('attiki', 'victoria',VELOCITY*3),
+    ('attiki', 'aghios nikolaos',VELOCITY*2),
+    ('attiki', 'sepolia',VELOCITY*1),
+    ('attiki', 'larissa st.',VELOCITY*2),
+    ('aghios nikolaos', 'attiki',VELOCITY*2),
+    ('aghios nikolaos', 'kato patissia',VELOCITY*2),
+    ('kato patissia', 'aghios nikolaos',VELOCITY * 2),
+    ('kato patissia', 'aghios eleftherios',VELOCITY * 2),
+    ('aghios eleftherios', 'kato patissia',VELOCITY * 2),
+    ('aghios eleftherios', 'ano patissia',VELOCITY * 1),
+    ('ano patissia', 'aghios eleftherios',VELOCITY * 1),
+    ('ano patissia', 'perissos',VELOCITY * 3),
+    ('perissos', 'ano patissia',VELOCITY * 3),
+    ('perissos', 'pefkakia',VELOCITY * 1),
+    ('pefkakia', 'perissos',VELOCITY * 1),
+    ('pefkakia', 'nea ionia',VELOCITY * 2),
+    ('nea ionia', 'pefkakia',VELOCITY * 2),
+    ('nea ionia', 'iraklio',VELOCITY * 2),
+    ('iraklio', 'nea ionia',VELOCITY * 2),
+    ('iraklio', 'irini',VELOCITY * 3),
+    ('irini', 'iraklio',VELOCITY * 3),
+    ('irini', 'neratziotissa',VELOCITY * 2),
+    ('neratziotissa', 'irini',VELOCITY * 2),
+    ('neratziotissa', 'maroussi',VELOCITY * 3),
+    ('maroussi', 'neratziotissa',VELOCITY * 3),
+    ('maroussi', 'kat',VELOCITY * 2),
+    ('kat', 'maroussi',VELOCITY * 2),
+    ('kat', 'kifissia',VELOCITY * 2),
+    ('sepolia','aghios antonios', VELOCITY*2),
+    ('sepolia','attiki', VELOCITY*1),
+    ('larissa st.','attiki', VELOCITY*2),
+    ('larissa st.','metaxourghio', VELOCITY*1),
+    ('metaxourghio','larissa st.', VELOCITY*1),
+    ('metaxourghio','omonia', VELOCITY*2),
+    ('panepistimio','omonia', VELOCITY*1),
+    ('panepistimio','syntagma', VELOCITY*2),
+    ('syntagma','panepistimio', VELOCITY*2),
+    ('syntagma','akropoli', VELOCITY*1),
+    ('syntagma','monastiraki', VELOCITY*3),
+    ('syntagma','evangelismos', VELOCITY*1),
+    ('akropoli','syntagma', VELOCITY*1),
+    ('akropoli','sygroy', VELOCITY*2),
+    ('sygroy - fix','akropoli', VELOCITY*2),
+    ('sygroy - fix','neos kosmos', VELOCITY*1),
+    ('neos kosmos','sygroy - fix', VELOCITY*1),
+    ('neos kosmos','aghios ioannis', VELOCITY*1),
+    ('aghios ioannis','neos kosmos', VELOCITY*1),
+    ('aghios ioannis','dafni', VELOCITY*2),
+    ('dafni','aghios ioannis', VELOCITY*2),
+    ('dafni','aghios dimitrios', VELOCITY*2),
+    ('aghios dimitrios','dafni', VELOCITY*2),
+    ('aghios dimitrios','ilioupoli', VELOCITY*2),
+    ('ilioupoli','aghios dimitrios', VELOCITY*2),
+    ('ilioupoli','alimos', VELOCITY*1),
+    ('alimos','ilioupoli', VELOCITY*1),
+    ('alimos','argyoupoli', VELOCITY*3),
+    ('argyoupoli','alimos', VELOCITY*3),
+    ('argyoupoli','elliniko', VELOCITY*1),
+    ('elliniko','argyroupoli', VELOCITY*1),
+    ('egaleo','eleonas', VELOCITY*2),
+    ('eleonas','egaleo', VELOCITY*2),
+    ('eleonas','kerameikos', VELOCITY*2),
+    ('kerameikos','eleonas', VELOCITY*2),
+    ('kerameikos','monastiraki', VELOCITY*2),
+    ('evangelismos','syntagma', VELOCITY*1),
+    ('evangelismos','megaro moussikis', VELOCITY*1),
+    ('megaro moussikis','evangelismos', VELOCITY*1),
+    ('megaro moussikis','ambelokipi', VELOCITY*2),
+    ('ambelokipi','megaro moussikis', VELOCITY*2),
+    ('ambelokipi','panormou', VELOCITY*1),
+    ('panormou','ambelokipi', VELOCITY*1),
+    ('panormou','katehaki', VELOCITY*2),
+    ('katehaki','panormou', VELOCITY*2),
+    ('katehaki','ethniki amyna', VELOCITY*2),
+    ('ethniki amyna','katehaki', VELOCITY*2),
+    ('ethniki amyna','holargos', VELOCITY*2),
+    ('holargos','ethniki amyna', VELOCITY*2),
+    ('holargos','nomismatokopio', VELOCITY*1),
+    ('nomismatokopio','holargos', VELOCITY*1),
+    ('nomismatokopio','aghia paraskevi', VELOCITY*2),
+    ('aghia paraskevi','nomismatokopio', VELOCITY*2),
+    ('aghia paraskevi','halandri', VELOCITY*2),
+    ('halandri','aghia paraskevi', VELOCITY*2),
+    ('halandri','douk. plakentias', VELOCITY*1),
+    ('douk. plakentias','halandri', VELOCITY*1),
+    ('douk. plakentias','pallini', VELOCITY*6),
+    ('pallini','douk. plakentias', VELOCITY*6),
+    ('pallini','peania - kantza', VELOCITY*3),
+    ('peania - kantza','pallini', VELOCITY*3),
+    ('peania - kantza','koropi', VELOCITY*6),
+    ('koropi','peania - kantza', VELOCITY*6),
+    ('koropi','airport', VELOCITY*5),
+    ('airport','peania - kantza', VELOCITY*5)
+]
+
+G.add_weighted_edges_from(aristas)
 
 graph = {
     'piraeus': {
@@ -253,11 +376,11 @@ graph = {
     }
 }
 
+
 def algorithm(from_location: str, to_location: str) -> int:
     '''
     METHOD THAT IMPLEMENTS A* ALGORITHM FOR ATHENAS METRO NET
     '''
-
 
     # INITIALIZE OPEN AND CLOSED LISTS
     open_list: list = []
@@ -271,6 +394,7 @@ def algorithm(from_location: str, to_location: str) -> int:
         closed_list.append(station)
         if station[2] == to_location:
             #* Success!!!
+            print(closed_list)
             return 1
 
         next_stations = list(graph[station[2]])
@@ -293,7 +417,7 @@ def main():
     '''
     MAIN METHOD
     '''
-    print(algorithm('piraeus', 'holargos'))
+    print(algorithm('thissio', 'evangelismos'))
 
 
 if __name__ == '__main__':
