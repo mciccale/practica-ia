@@ -385,11 +385,13 @@ def algorithm(from_location: str, to_location: str) -> int:
     # INITIALIZE OPEN AND CLOSED LISTS
     open_list: list = []
     closed_list: list = []
+    g_value_before: float = 0
     g_value: float = 0
     h_value: float = 0
     open_list.append((0,0, from_location))
     while len(open_list) != 0:
         station = min(open_list)
+        g_value_before = station[1]
         open_list.remove(station)
         closed_list.append(station)
         if station[2] == to_location:
@@ -402,14 +404,14 @@ def algorithm(from_location: str, to_location: str) -> int:
             result = [ x for x in closed_list if x[2] == new_station]
             if result != []:
                 continue
-            g_value = g_value + graph[station[2]][new_station]
+            g_value = g_value_before + graph[station[2]][new_station]
             h_value = data_frame[new_station][to_location]
             f_value = g_value + h_value
             if new_station in open_list:
                 index: int = open_list.index(new_station)
                 if g_value > open_list[index][1]:
                     continue
-            open_list.append((f_value,g_value, new_station))
+            open_list.append((f_value, g_value, new_station))
     return 0
 
 
