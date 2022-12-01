@@ -360,7 +360,7 @@ graph = {
         'airport': VELOCITY*5
     },
     'airport': {
-        'peania - kantza': VELOCITY*5
+        'koropi': VELOCITY*5
     }
 }
 
