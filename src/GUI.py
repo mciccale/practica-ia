@@ -85,15 +85,17 @@ class Page(tk.Tk):
         }
         f.add_subplot(111)
         
-        color_map = []
-        i: int = 0
-        for node in OptionList:
-            for node2 in closed_list:
-                try:
-                    color_map.append('red' if OptionList[OptionList.index(node[2])]==node[2] else 'green')
-                    break
-                except ValueError:
-                    color_map.append('green')
+        color_map = ['green' for node in OptionList ]
+        indice: int = 0
+        node: str 
+        for element in closed_list:
+            node=element[2]
+            try:
+                indice=OptionList.index(node)
+                color_map.pop(indice)
+                color_map.insert(indice,'red')
+            except ValueError:
+                print('No esta el nodo ' + node)
         print(color_map)
         nx.draw_networkx(G,layout, node_color=color_map, node_size=50,edge_color='gray', font_size=8)
         canvas=FigureCanvasTkAgg(f,self)
