@@ -10,6 +10,19 @@ data_frame: dict = get_data()
 VELOCITY = 1.3333
 
 G = nx.Graph()
+nodos = [
+            'piraeus','faliro','moschato','kallithea','tavros','petralona','thissio','monastiraki', 
+            'omonia', 'victoria', 'aghios nikolaos', 'kato patissia', 
+            'aghios eleftherios', 'ano patissia', 'perissos', 'pefkakia', 'nea ionia', 'iraklio', 
+            'irini', 'neratziotissa', 'maroussi', 'kat', 'kifissia',
+            'aghios antonios', 'sepolia', 'attiki', 'larissa st.', 'metaxourghio', 'panepistimio', 
+            'syntagma', 'akropoli', 'sygroy - fix', 'neos kosmos', 'aghios ioannis', 
+            'dafni', 'aghios dimitrios',
+            'egaleo', 'eleonas', 'kerameikos', 'evangelismos', 'megaro moussikis', 'ambelokipi', 'panormou', 
+            'katehaki', 'ethniki amyna', 'holargos', 'nomismatokopio', 'aghia paraskevi',
+            'halandri', 'douk. plakentias', 'pallini', 'peania - kantza', 'koropi', 'airport',
+            
+        ] 
 aristas = [
     ('piraeus','faliro',VELOCITY*4),
     ('faliro','piraeus',VELOCITY*3),
@@ -119,7 +132,7 @@ aristas = [
     ('koropi','peania - kantza', VELOCITY*6),
     ('koropi','airport', VELOCITY*5),
 ]
-
+G.add_nodes_from(nodos)
 G.add_weighted_edges_from(aristas)
 
 graph = {

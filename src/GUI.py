@@ -101,6 +101,5 @@ class Page(tk.Tk):
         canvas=FigureCanvasTkAgg(f,self)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP,fill=tk.BOTH, expand=True)
-        color_map = []
 app=Graphapp()
 app.mainloop()
