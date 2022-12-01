@@ -31,10 +31,9 @@ class Graphapp(tk.Tk):
         container.grid_rowconfigure(0,weight=1)
         container.grid_columnconfigure(0,weight=1)
         self.frames={}
-        for F in(StartPage,Page):
-            frame=F(container,self)
-            self.frames[F]=frame
-            frame.grid(row=0, column=0, sticky="nsew")
+        frame=StartPage(container,self)
+        self.frames[StartPage]=frame
+        frame.grid(row=0, column=0, sticky="nsew", padx=100, pady=100, ipadx=100, ipady=100)
         self.show_frame(StartPage)
     def show_frame(self, cont):
         frame=self.frames[cont]
@@ -43,32 +42,34 @@ class StartPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
         label=tk.Label(self,text="Start Page", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
-       
+        label.pack(pady=20,padx=90)
         variable = tk.StringVar(self)
         variable.set(OptionList[0])
         opt = tk.OptionMenu(self, variable, *OptionList)
-        opt.config(width=20, font=('Helvetica', 12))
+        opt.config(width=15, font=('Helvetica', 12))
         opt.pack()
-        opt.place(x=200,y=100)
+        opt.place(x=50,y=150)
         variable2 = tk.StringVar(self)
         variable2.set(OptionList[0])
         variable.get
         opt2 = tk.OptionMenu(self, variable2, *OptionList)
-        opt2.config(width=20, font=('Helvetica', 12))
+        opt2.config(width=15, font=('Helvetica', 12))
         opt2.pack()
-        opt2.place(x=550,y=100)
-        button=ttk.Button(self,text="Search Path", command=lambda:[algorithm(variable.get(),variable2.get()), controller.show_frame(Page)])
+        opt2.place(x=250,y=150)
+        button=ttk.Button(self,text="Search Path", command=lambda:[algorithm(variable.get(),variable2.get()), Page()])
         button.pack()
-class Page(tk.Frame):
-    def __init__(self,parent,controller):
-        tk.Frame.__init__(self,parent)
+class Page(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self,*args,**kwargs)
+        tk.Tk.iconbitmap(self, default="")
+        tk.Tk.wm_title(self, "BEST PATH")
+        container=tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0,weight=1)
+        container.grid_columnconfigure(0,weight=1)
         label=tk.Label(self,text="Graph Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
-        button=ttk.Button(self,text="Back to Home", command=lambda:controller.show_frame(StartPage))
-        button.pack()
         f=plt.figure(figsize=(15,8), dpi=100)
- 
         layout = {
             'piraeus':[0,2],'faliro':[5,3],'moschato':[7,5],'kallithea':[8,6],'tavros':[10,7],'petralona':[12, 9],'thissio':[12.25, 11],'monastiraki':[12.25, 13], 
             'omonia':[12.25, 15], 'victoria':[12.25,17], 'aghios nikolaos':[10,21], 'kato patissia':[11,22], 
@@ -83,10 +84,21 @@ class Page(tk.Frame):
             
         }
         f.add_subplot(111)
-        color_map = ['red' if node == closed_list else 'green' for node in OptionList]
+        
+        color_map = []
+        i: int = 0
+        for node in OptionList:
+            for node2 in closed_list:
+                try:
+                    color_map.append('red' if OptionList[OptionList.index(node[2])]==node[2] else 'green')
+                    break
+                except ValueError:
+                    color_map.append('green')
+        print(color_map)
         nx.draw_networkx(G,layout, node_color=color_map, node_size=50,edge_color='gray', font_size=8)
         canvas=FigureCanvasTkAgg(f,self)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP,fill=tk.BOTH, expand=True)
+        color_map = []
 app=Graphapp()
 app.mainloop()
