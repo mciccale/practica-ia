@@ -448,13 +448,3 @@ class Graph:
 
         print('Path does not exist!')
         return None
-
-
-def main():
-    '''MAIN'''
-    graph1 = Graph(graph)
-    graph1.a_star('attiki', 'syntagma')
-
-
-if __name__ == '__main__':
-    main()
