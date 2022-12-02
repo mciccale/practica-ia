@@ -6,22 +6,27 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import networkx as nx
 import algorithm as a
+from algorithm import reconst_path, G
 
 matplotlib.use("TkAgg")
 LARGE_FONT=("Verdana",12)
+
+graph1 = a.Graph(a.graph)
+
 OptionList = [
-            'piraeus','faliro','moschato','kallithea','tavros','petralona','thissio','monastiraki', 
-            'omonia', 'victoria', 'aghios nikolaos', 'kato patissia', 
-            'aghios eleftherios', 'ano patissia', 'perissos', 'pefkakia', 'nea ionia', 'iraklio', 
+            'piraeus','faliro','moschato','kallithea','tavros','petralona','thissio','monastiraki',
+            'omonia', 'victoria', 'aghios nikolaos', 'kato patissia',
+            'aghios eleftherios', 'ano patissia', 'perissos', 'pefkakia', 'nea ionia', 'iraklio',
             'irini', 'neratziotissa', 'maroussi', 'kat', 'kifissia',
-            'aghios antonios', 'sepolia', 'attiki', 'larissa st.', 'metaxourghio', 'panepistimio', 
-            'syntagma', 'akropoli', 'sygroy - fix', 'neos kosmos', 'aghios ioannis', 
+            'aghios antonios', 'sepolia', 'attiki', 'larissa st.', 'metaxourghio', 'panepistimio',
+            'syntagma', 'akropoli', 'sygroy - fix', 'neos kosmos', 'aghios ioannis',
             'dafni', 'aghios dimitrios',
-            'egaleo', 'eleonas', 'kerameikos', 'evangelismos', 'megaro moussikis', 'ambelokipi', 'panormou', 
+            'egaleo', 'eleonas', 'kerameikos', 'evangelismos', 'megaro moussikis', 'ambelokipi', 'panormou',
             'katehaki', 'ethniki amyna', 'holargos', 'nomismatokopio', 'aghia paraskevi',
             'halandri', 'douk. plakentias', 'pallini', 'peania - kantza', 'koropi', 'airport',
-            
-        ] 
+
+]
+
 class Graphapp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self,*args,**kwargs)
@@ -36,9 +41,13 @@ class Graphapp(tk.Tk):
         self.frames[StartPage]=frame
         frame.grid(row=0, column=0, sticky="nsew", padx=100, pady=100, ipadx=100, ipady=100)
         self.show_frame(StartPage)
+
+
     def show_frame(self, cont):
         frame=self.frames[cont]
         frame.tkraise()
+
+
 class StartPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
@@ -57,8 +66,11 @@ class StartPage(tk.Frame):
         opt2.config(width=15, font=('Helvetica', 12))
         opt2.pack()
         opt2.place(x=250,y=150)
-        button=ttk.Button(self,text="Search Path", command=lambda:[algorithm(variable.get(),variable2.get()), Page()])
+        a.Graph.__init__(graph1, a.graph)
+        button=ttk.Button(self,text="Search Path", command=lambda:[a.Graph.a_star(graph1, variable.get(),variable2.get()), Page()])
         button.pack()
+
+
 class Page(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self,*args,**kwargs)
@@ -70,39 +82,40 @@ class Page(tk.Tk):
         container.grid_columnconfigure(0,weight=1)
         label=tk.Label(self,text="Graph Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
-        f=plt.figure(figsize=(15,8), dpi=100)
+        f=plt.figure(figsize=(12,6), dpi=200)
+
         layout = {
-            'piraeus':[0,2],'faliro':[5,3],'moschato':[7,5],'kallithea':[8,6],'tavros':[10,7],'petralona':[12, 9],'thissio':[12.25, 11],'monastiraki':[12.25, 13], 
-            'omonia':[12.25, 15], 'victoria':[12.25,17], 'aghios nikolaos':[10,21], 'kato patissia':[11,22], 
-            'aghios eleftherios':[12,24], 'ano patissia':[14.5,25], 'perissos':[16,26], 'pefkakia':[17.5,27], 'nea ionia':[19,28], 'iraklio':[20,29], 
+            'piraeus':[0,2],'faliro':[5,3],'moschato':[7,5],'kallithea':[8,6],'tavros':[10,7],'petralona':[12, 9],'thissio':[12.25, 11],'monastiraki':[12.25, 13],
+            'omonia':[12.25, 15], 'victoria':[12.25,17], 'aghios nikolaos':[10,21], 'kato patissia':[11,22],
+            'aghios eleftherios':[12,24], 'ano patissia':[14.5,25], 'perissos':[16,26], 'pefkakia':[17.5,27], 'nea ionia':[19,28], 'iraklio':[20,29],
             'irini':[20.5,34], 'neratziotissa':[21,36], 'maroussi':[23,38], 'kat': [25,40], 'kifissia': [27,42],
-            'aghios antonios': [5, 24], 'sepolia': [7, 22], 'attiki': [9, 20], 'larissa st.': [9, 18], 'metaxourghio': [9, 16], 'panepistimio': [13.5, 13], 
-            'syntagma': [14.5, 12], 'akropoli': [14.5, 10], 'sygroy - fix': [14.5, 8], 'neos kosmos': [14.5, 6], 'aghios ioannis': [14.5, 4], 
+            'aghios antonios': [5, 24], 'sepolia': [7, 22], 'attiki': [9, 20], 'larissa st.': [9, 18], 'metaxourghio': [9, 16], 'panepistimio': [13.5, 13],
+            'syntagma': [14.5, 12], 'akropoli': [14.5, 10], 'sygroy - fix': [14.5, 8], 'neos kosmos': [14.5, 6], 'aghios ioannis': [14.5, 4],
             'dafni': [14.5, 2], 'aghios dimitrios': [14.5, 0],
-            'egaleo': [2,18], 'eleonas': [5,15], 'kerameikos': [7,13], 'evangelismos':[19, 12], 'megaro moussikis': [20.5,13], 'ambelokipi': [22,14], 'panormou': [23,15], 
+            'egaleo': [2,18], 'eleonas': [5,15], 'kerameikos': [7,13], 'evangelismos':[19, 12], 'megaro moussikis': [20.5,13], 'ambelokipi': [22,14], 'panormou': [23,15],
             'katehaki': [24,16], 'ethniki amyna': [25,17], 'holargos': [26,18], 'nomismatokopio': [27,19], 'aghia paraskevi': [28,20],
             'halandri': [29,21], 'douk. plakentias': [31,23], 'pallini': [34,21.5], 'peania - kantza': [34,19], 'koropi': [34,13], 'airport':[38,11]
-            
         }
+
         f.add_subplot(111)
-        
-        color_map = ['green' for node in OptionList ]
+
+        color_map = ['green' for node in OptionList]
         indice: int = 0
-        node: str 
-        for element in closed_list:
-            node=element[2]
+        node: str
+
+        for element in reconst_path:
             try:
-                indice=OptionList.index(node)
+                indice=OptionList.index(element)
                 color_map.pop(indice)
                 color_map.insert(indice,'red')
             except ValueError:
-                print('No esta el nodo ' + node)
-        print(color_map)
-        nx.draw_networkx(G,layout, node_color=color_map, node_size=50,edge_color='gray', font_size=8)
+                print('No esta el nodo ' + element)
+
+        nx.draw_networkx(G,layout, node_color=color_map, node_size=30,edge_color='gray', font_size=5)
         canvas=FigureCanvasTkAgg(f,self)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP,fill=tk.BOTH, expand=True)
         color_map.clear()
-        closed_list.clear()
+        reconst_path.clear()
 app=Graphapp()
 app.mainloop()

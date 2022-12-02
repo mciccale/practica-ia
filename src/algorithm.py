@@ -321,7 +321,7 @@ graph = {
     ],
     'katehaki': [
         ('panormou', VELOCITY*2),
-        ('ethniki amyn', VELOCITY*2)
+        ('ethniki amyna', VELOCITY*2)
     ],
     'ethniki amyna': [
         ('katehaki', VELOCITY*2),
@@ -363,6 +363,8 @@ graph = {
         ('koropi', VELOCITY*5)
     ]
 }
+
+reconst_path = []
 
 class Graph:
     '''CLASE QUE IMPLEMENTA UN GRAFO PARA HACER A*'''
@@ -412,14 +414,12 @@ class Graph:
             # Si es el nodo meta, se reconstruye el camino seguido
             # y termina la ejecución
             if node == to_node:
-                reconst_path = []
                 while parents[node] != node:
                     reconst_path.append(node)
                     node = parents[node]
 
                 reconst_path.append(from_node)
                 reconst_path.reverse()
-                print(f'Path: {reconst_path}')
                 return reconst_path
 
             # Se evalúan los nodos adyacentes al nodo
