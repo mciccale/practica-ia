@@ -1,12 +1,13 @@
-import matplotlib
-matplotlib.use("TkAgg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
 import tkinter as tk
 from tkinter import ttk
-import networkx as nx
+import matplotlib
 import matplotlib.pyplot as plt
-from algorithm import G,algorithm, closed_list
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import networkx as nx
+import algorithm as a
+
+matplotlib.use("TkAgg")
 LARGE_FONT=("Verdana",12)
 OptionList = [
             'piraeus','faliro','moschato','kallithea','tavros','petralona','thissio','monastiraki', 
