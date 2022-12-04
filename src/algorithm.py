@@ -147,16 +147,16 @@ layout = {
             'halandri': [29,21], 'douk. plakentias': [31,23], 'pallini': [34,21.5], 'peania - kantza': [34,19], 'koropi': [34,13], 'airport':[38,11]
         }
 label_layout = {
-            'piraeus':[0,2],'faliro':[5,3],'moschato':[7,5],'kallithea':[8,6],'tavros':[10,7],'petralona':[12, 9],'thissio':[12.25, 11],'monastiraki':[12.25, 13.5],
-            'omonia':[12.25, 15], 'victoria':[12.25,17], 'aghios nikolaos':[10,21], 'kato patissia':[11,22],
-            'aghios eleftherios':[12,24], 'ano patissia':[14.5,25], 'perissos':[16,26], 'pefkakia':[17.5,27], 'nea ionia':[19,28], 'iraklio':[20,29],
-            'irini':[20.5,34], 'neratziotissa':[21,36], 'maroussi':[23,38], 'kat': [25,40], 'kifissia': [27,42],
-            'aghios antonios': [5, 24], 'sepolia': [7, 22], 'attiki': [9, 20], 'larissa st.': [9, 18], 'metaxourghio': [9, 16], 'panepistimio': [16, 13.5],
-            'syntagma': [14.5, 12], 'akropoli': [14.5, 10], 'sygroy - fix': [14.5, 8], 'neos kosmos': [14.5, 6], 'aghios ioannis': [14.5, 4],
-            'dafni': [14.5, 2], 'aghios dimitrios': [14.5, 0],
-            'egaleo': [2,18], 'eleonas': [5,15], 'kerameikos': [7,13], 'evangelismos':[19, 12], 'megaro moussikis': [20.5,13], 'ambelokipi': [22,14], 'panormou': [23,15],
-            'katehaki': [24,16], 'ethniki amyna': [25,17], 'holargos': [26,18], 'nomismatokopio': [27,19], 'aghia paraskevi': [28,20],
-            'halandri': [29,21], 'douk. plakentias': [31,23], 'pallini': [34,21.5], 'peania - kantza': [34,19], 'koropi': [34,13], 'airport':[38,11]
+            'piraeus':[0,1],'faliro':[5,2],'moschato':[6.5,5],'kallithea':[7.8,6.5],'tavros':[9.7,7.3],'petralona':[11.6, 9],'thissio':[12, 11],'monastiraki':[12.1, 13.5],
+            'omonia':[12.1, 15], 'victoria':[12.1,17], 'aghios nikolaos':[14,20.5], 'kato patissia':[11,22.8],
+            'aghios eleftherios':[12,25], 'ano patissia':[14.5,26], 'perissos':[16,27], 'pefkakia':[17.5,28], 'nea ionia':[19,29], 'iraklio':[20,30],
+            'irini':[20,34], 'neratziotissa':[20.5,36], 'maroussi':[22.5,38], 'kat': [24.5,40], 'kifissia': [26.5,42],
+            'aghios antonios': [4.6, 24], 'sepolia': [6.5, 22], 'attiki': [8.5, 20], 'larissa st.': [8.8, 18], 'metaxourghio': [8.8, 16], 'panepistimio': [16, 14],
+            'syntagma': [14.5, 12], 'akropoli': [14.5, 10], 'sygroy - fix': [14.5, 8], 'neos kosmos': [14, 6], 'aghios ioannis': [14, 4],
+            'dafni': [14, 2], 'aghios dimitrios': [14, 0],
+            'egaleo': [1.6,18], 'eleonas': [4.6,15], 'kerameikos': [6.6,13], 'evangelismos':[19, 11], 'megaro moussikis': [20.2,13.5], 'ambelokipi': [22,15], 'panormou': [23,16],
+            'katehaki': [24,17], 'ethniki amyna': [25,18], 'holargos': [26,19], 'nomismatokopio': [27,20], 'aghia paraskevi': [28,21],
+            'halandri': [29,22], 'douk. plakentias': [31,24], 'pallini': [33.5,21], 'peania - kantza': [33.5,19], 'koropi': [33.3,13], 'airport':[38,10]
         }
 graph = {
     'piraeus': [
