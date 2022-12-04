@@ -391,17 +391,17 @@ reconst_path = []
 
 class Graph:
     '''CLASE QUE IMPLEMENTA UN GRAFO PARA HACER A*'''
-    def __init__(self, adjacency_list):
-        self.adjacency_list = adjacency_list
+    def __init__(self, adyacentes_lista):
+        self.adjacentes_lista = adyacentes_lista
         self.h_values = data_frame
 
 
-    def adjacents(self, node):
+    def adyacentes(self, node):
         '''METODO QUE OBTIENE LOS NODOS ADYACENTES DE NODE'''
-        return self.adjacency_list[node]
+        return self.adjacentes_lista[node]
 
 
-    def h_function(self, from_node, to_node):
+    def funcion_h(self, from_node, to_node):
         '''GET H_VALUE'''
         return self.h_values[from_node][to_node]
 
@@ -416,8 +416,8 @@ class Graph:
         g_value[from_node] = 0
 
         # Se inicializa diccionario para guardar el recorrido
-        parents = {}
-        parents[from_node] = from_node
+        padres = {}
+        padres[from_node] = from_node
 
         # Bucle principal
         while len(open_list) > 0:
@@ -428,42 +428,41 @@ class Graph:
             # Siendo f = g + h
             for next_node in open_list:
                 if node is None or \
-                    g_value[next_node] + self.h_function(next_node, to_node) \
+                    g_value[next_node] + self.funcion_h(next_node, to_node) \
                         < \
-                    g_value[node] + self.h_function(node, to_node):
+                    g_value[node] + self.funcion_h(node, to_node):
 
                     node = next_node
 
             # Si es el nodo meta, se reconstruye el camino seguido
             # y termina la ejecución
             if node == to_node:
-                while parents[node] != node:
+                while padres[node] != node:
                     reconst_path.append(node)
-                    node = parents[node]
+                    node = padres[node]
 
                 reconst_path.append(from_node)
                 reconst_path.reverse()
                 return reconst_path
 
             # Se evalúan los nodos adyacentes al nodo
-            for (child, cost) in self.adjacents(node):
+            for (hijo, coste) in self.adyacentes(node):
                 # Si no está en open ni closed significa que no se ha expandido
-                if child not in open_list and child not in close_list:
-                    open_list.add(child)
-                    parents[child] = node
-                    g_value[child] = g_value[node] + cost
+                if hijo not in open_list and hijo not in close_list:
+                    open_list.add(hijo)
+                    padres[hijo] = node
+                    g_value[hijo] = g_value[node] + coste
 
                 # Si está, se evalúa si se ha encontrado un mejor camino hacia él
                 else:
-                    if g_value[child] > g_value[node] + cost:
-                        g_value[child] = g_value[node] + cost
-                        parents[child] = node
+                    if g_value[hijo] > g_value[node] + coste:
+                        g_value[hijo] = g_value[node] + coste
+                        padres[hijo] = node
 
                         # Si ya estaba en la closed, se quita, es necesario volver a evaluar
-                        if child in close_list:
-                            close_list.remove(child)
-                            open_list.add(child)
-
+                        if hijo in close_list:
+                            close_list.remove(hijo)
+                            open_list.add(hijo)
 
             open_list.remove(node)
             close_list.add(node)
